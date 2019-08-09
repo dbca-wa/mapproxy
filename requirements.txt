@@ -1,7 +1,6 @@
--e git+https://github.com/scottp-dpaw/mapproxy.git@wms_version_fix#egg=mapproxy
-uWSGI==2.0.15
-gevent==1.2.2
-greenlet==0.4.12
-Pillow==3.2.0
-PyYAML==3.11
-wheel==0.24.0
+MapProxy==1.11.1
+uWSGI==2.0.18
+gevent==1.4.0
+greenlet==0.4.15
+Pillow==6.1.0
+PyYAML==3.13
