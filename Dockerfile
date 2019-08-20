@@ -1,4 +1,5 @@
-FROM ubuntu:18.04 as builder_base_mapproxy
+#FROM ubuntu:18.04 as builder_base_mapproxy
+FROM python:3.5-stretch as builder_base_mapproxy
 MAINTAINER asi@dbca.wa.gov.au
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Australia/Perth
