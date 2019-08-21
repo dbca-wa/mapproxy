@@ -3,4 +3,4 @@ uWSGI==2.0.18
 gevent==1.4.0
 greenlet==0.4.15
 Pillow==6.1.0
-PyYAML==3.13
+PyYAML==5.1.2
