@@ -31,9 +31,6 @@ layers:
   - name: mapbox-streets
     title: Mapbox streets
     sources: [mapbox-streets-cache]
-  - name: sentinel-roads
-    title: Sentinel Roads
-    sources: [sentinel-roads-wms]
   - name: telstra-gcm-4g-3g
     title: Telstra GCM 4G 3G
     sources: [telstra-gcm-4g-3g-cache]
@@ -137,8 +134,8 @@ sources:
     image:
        mode: RGBA
        transparent: true
-    on_error: 
-      404: 
+    on_error:
+      404:
         response: transparent
         cache: true
 
@@ -164,17 +161,3 @@ sources:
       styles: 'vha_cov_tile'
       format: 'image/gif'
     min_res: 4891.96981025128
-
-  sentinel-roads-wms:
-    type: wms
-    supported_srs: ['EPSG:4326']
-    req:
-      url: http://sentinel.ga.gov.au/wmsconnector/com.esri.wms.Esrimap?
-      layers: 1101,1100,1102,1104,1103,1140,1141,1170,1171,1172,1173
-      transparent: true
-    coverage:
-      bbox: [113.15627999999998,-43.64304999905776,153.63857,-10.687579997555682]
-      srs: 'EPSG:4326'
-    image:
-      transparent_color: '#ffffff'
-      transparent_color_tolerance: 5
