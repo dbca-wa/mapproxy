@@ -1,4 +1,3 @@
-#FROM ubuntu:18.04 as builder_base_mapproxy
 FROM python:3.5-stretch as builder_base_mapproxy
 MAINTAINER asi@dbca.wa.gov.au
 ENV DEBIAN_FRONTEND=noninteractive
@@ -17,7 +16,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Install the project.
 FROM python_libs_mapproxy
-COPY mapproxy.yaml uwsgi.ini wsgi.py ./
+COPY uwsgi.ini wsgi.py ./
+RUN ln -s /app/config/mapproxy.yaml /app/mapproxy.yaml
 USER www-data
 EXPOSE 8080
 HEALTHCHECK --interval=1m --timeout=5s --start-period=10s --retries=3 CMD ["wget", "-q", "-O", "-", "http://localhost:8080/demo/"]
