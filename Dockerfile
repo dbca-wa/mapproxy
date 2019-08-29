@@ -1,11 +1,10 @@
-FROM python:3.5-stretch as builder_base_mapproxy
+FROM python:3.5-slim-stretch as builder_base_mapproxy
 MAINTAINER asi@dbca.wa.gov.au
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Australia/Perth
 RUN apt-get update -y \
   && apt-get upgrade -y \
-  && apt-get install --no-install-recommends -y wget git libmagic-dev gcc binutils libproj-dev gdal-bin \
-  python python-setuptools python-dev python-pip tzdata libjpeg-dev zlib1g-dev libpng-dev \
+  && apt-get install --no-install-recommends -y python-imaging python-yaml libproj-dev libgeos-dev python-lxml libgdal-dev python-shapely \
   && pip install --upgrade pip
 
 # Install Python libs from requirements.txt.
