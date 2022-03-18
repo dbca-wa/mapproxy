@@ -10,7 +10,7 @@ python = "^3.8"
 MapProxy = "1.13.0"
 gevent = "21.1.2"
 greenlet = "1.1.0"
-Pillow = "8.2.0"
+Pillow = "9.0.1"
 gunicorn = "20.1.0"
 PyYAML = "5.4.1"
 
