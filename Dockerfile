@@ -1,17 +1,19 @@
-FROM python:3.8.8-slim-buster as builder_base_mapproxy
+FROM python:3.9.11-slim-bullseye as builder_base
 MAINTAINER asi@dbca.wa.gov.au
+LABEL org.opencontainers.image.source https://github.com/dbca-wa/mapproxy
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Australia/Perth
 RUN apt-get update -y \
   && apt-get upgrade -y \
-  && apt-get install --no-install-recommends -y python-pil python-yaml libproj-dev libgeos-dev python-lxml libgdal-dev python-shapely \
+  && apt-get install --no-install-recommends -y libproj-dev libgeos-dev libgdal-dev \
   && rm -rf /var/lib/apt/lists/* \
   && pip install --upgrade pip
 
 # Install Python libs from requirements.txt.
-FROM builder_base_mapproxy as python_libs_mapproxy
+FROM builder_base as python_libs_mapproxy
 WORKDIR /app
-ENV POETRY_VERSION=1.1.6
+ENV POETRY_VERSION=1.1.13
 RUN pip install "poetry==$POETRY_VERSION"
 RUN python -m venv /venv
 COPY poetry.lock pyproject.toml /app/
