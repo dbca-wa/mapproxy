@@ -1,4 +1,4 @@
-FROM python:3.9.11-slim-bullseye as builder_base
+FROM python:3.9.15-slim-buster as builder_base
 MAINTAINER asi@dbca.wa.gov.au
 LABEL org.opencontainers.image.source https://github.com/dbca-wa/mapproxy
 
@@ -10,15 +10,14 @@ RUN apt-get update -y \
   && rm -rf /var/lib/apt/lists/* \
   && pip install --upgrade pip
 
-# Install Python libs from requirements.txt.
+# Install Python libs using Poetry.
 FROM builder_base as python_libs_mapproxy
 WORKDIR /app
-ENV POETRY_VERSION=1.1.13
+ENV POETRY_VERSION=1.2.2
 RUN pip install "poetry==$POETRY_VERSION"
-RUN python -m venv /venv
 COPY poetry.lock pyproject.toml /app/
 RUN poetry config virtualenvs.create false \
-  && poetry install --no-dev --no-interaction --no-ansi
+  && poetry install --no-interaction --no-ansi --only main
 
 # Install the project.
 FROM python_libs_mapproxy
