@@ -8,7 +8,7 @@ license = "Apache-2.0"
 [tool.poetry.dependencies]
 python = "^3.9"
 mapproxy = "1.15.1"
-gevent = "22.10.2"
+gevent = "23.9.1"
 pillow = "9.4.0"
 gunicorn = "20.1.0"
 pyyaml = "6.0"
