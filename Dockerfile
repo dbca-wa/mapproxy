@@ -1,4 +1,4 @@
-FROM python:3.9.15-slim-buster as builder_base
+FROM python:3.10.13-slim-bullseye as builder_base_mapproxy
 MAINTAINER asi@dbca.wa.gov.au
 LABEL org.opencontainers.image.source https://github.com/dbca-wa/mapproxy
 
@@ -11,19 +11,25 @@ RUN apt-get update -y \
   && pip install --upgrade pip
 
 # Install Python libs using Poetry.
-FROM builder_base as python_libs_mapproxy
+FROM builder_base_mapproxy as python_libs_mapproxy
 WORKDIR /app
-ENV POETRY_VERSION=1.2.2
-RUN pip install "poetry==$POETRY_VERSION"
+ENV POETRY_VERSION=1.5.1
+RUN pip install --upgrade pip && pip install "poetry==$POETRY_VERSION"
 COPY poetry.lock pyproject.toml /app/
 RUN poetry config virtualenvs.create false \
-  && poetry install --no-interaction --no-ansi --only main
+  && poetry install --no-interaction --no-ansi --without dev
+
+# Create a non-root user.
+ARG UID=10001
+ARG GID=10001
+RUN groupadd -g "${GID}" appuser \
+  && useradd --no-create-home --no-log-init --uid "${UID}" --gid "${GID}" appuser
 
 # Install the project.
 FROM python_libs_mapproxy
 COPY gunicorn.py wsgi.py ./
 RUN ln -s /app/config/mapproxy.yaml /app/mapproxy.yaml
-USER www-data
+
+USER ${UID}
 EXPOSE 8080
-HEALTHCHECK --interval=1m --timeout=5s --start-period=10s --retries=3 CMD ["wget", "-q", "-O", "-", "http://localhost:8080/demo/"]
 CMD ["gunicorn", "--config", "gunicorn.py", "wsgi"]

@@ -1,20 +1,20 @@
 [tool.poetry]
 name = "dbcamapproxy"
-version = "1.15.1"
+version = "1.16.0"
 description = "DBCA internal MapProxy service application"
 authors = ["ASI <asi@dbca.wa.gov.au>"]
 license = "Apache-2.0"
 
 [tool.poetry.dependencies]
-python = "^3.9"
-mapproxy = "1.15.1"
-gevent = "22.10.2"
-pillow = "9.4.0"
-gunicorn = "20.1.0"
-pyyaml = "6.0"
+python = "^3.10"
+mapproxy = "1.16.0"
+gevent = "23.9.1"
+pillow = "10.0.1"
+gunicorn = "21.2.0"
+pyyaml = "6.0.1"
 
 [tool.poetry.group.dev.dependencies]
 
 [build-system]
-requires = ["poetry>=1.2.2"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
