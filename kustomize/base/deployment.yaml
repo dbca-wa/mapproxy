@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mapproxy-deployment
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+  template:
+    spec:
+      containers:
+      - name: mapproxy
+        env:
+        - name: TZ
+          value: "Australia/Perth"
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "10m"
+          limits:
+            memory: "4096Mi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /demo/
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 3
+          failureThreshold: 3
+          successThreshold: 1
+          timeoutSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /demo/
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 3
+          failureThreshold: 3
+          successThreshold: 1
+          timeoutSeconds: 3
+        securityContext:
+          runAsNonRoot: true
+          privileged: false
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+          readOnlyRootFilesystem: false
+      restartPolicy: Always

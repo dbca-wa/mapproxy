@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mapproxy-deployment
+  labels:
+    app: mapproxy-uat
+spec:
+  selector:
+    matchLabels:
+      app: mapproxy-uat
+  template:
+    metadata:
+      labels:
+        app: mapproxy-uat
+    spec:
+      containers:
+      - name: mapproxy
+        image: ghcr.io/dbca-wa/mapproxy
+        imagePullPolicy: Always
+        volumeMounts:
+        - mountPath: /app/config
+          name: mapproxy-configmap
+      volumes:
+      - configMap:
+          name: mapproxy-configmap-uat
+          defaultMode: 292
+          optional: false
+        name: mapproxy-configmap
