@@ -1,4 +1,6 @@
-FROM python:3.10.13-slim-bullseye as builder_base_mapproxy
+# syntax=docker/dockerfile:1
+# Prepare the base environment.
+FROM python:3.10.13-slim as builder_base_mapproxy
 MAINTAINER asi@dbca.wa.gov.au
 LABEL org.opencontainers.image.source https://github.com/dbca-wa/mapproxy
 
@@ -6,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Australia/Perth
 RUN apt-get update -y \
   && apt-get upgrade -y \
-  && apt-get install --no-install-recommends -y libproj-dev libgeos-dev libgdal-dev \
+  && apt-get install --no-install-recommends -y libgeos-dev libgdal-dev \
   && rm -rf /var/lib/apt/lists/* \
   && pip install --upgrade pip
 
