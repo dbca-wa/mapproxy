@@ -10,6 +10,8 @@ spec:
     spec:
       containers:
       - name: mapproxy
+        image: ghcr.io/dbca-wa/mapproxy
+        imagePullPolicy: Always
         env:
         - name: TZ
           value: "Australia/Perth"
@@ -47,5 +49,12 @@ spec:
           capabilities:
             drop:
               - ALL
-          readOnlyRootFilesystem: false
+          readOnlyRootFilesystem: true
+        volumeMounts:
+          - mountPath: /tmp
+            name: tmpfs-ram
+      volumes:
+        - name: tmpfs-ram
+          emptyDir:
+            medium: "Memory"
       restartPolicy: Always

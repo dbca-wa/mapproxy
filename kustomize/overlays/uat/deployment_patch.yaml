@@ -15,8 +15,6 @@ spec:
     spec:
       containers:
       - name: mapproxy
-        image: ghcr.io/dbca-wa/mapproxy
-        imagePullPolicy: Always
         volumeMounts:
         - mountPath: /app/config
           name: mapproxy-configmap

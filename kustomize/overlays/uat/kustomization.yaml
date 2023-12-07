@@ -15,4 +15,4 @@ patches:
 configMapGenerator:
   - name: mapproxy-configmap
     files:
-    - config.yaml
+      - mapproxy.yaml
