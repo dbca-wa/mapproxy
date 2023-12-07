@@ -58,3 +58,4 @@ spec:
           emptyDir:
             medium: "Memory"
       restartPolicy: Always
+      terminationGracePeriodSeconds: 180
