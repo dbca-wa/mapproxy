@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mapproxy-deployment
+  labels:
+    app: mapproxy-prod
+spec:
+  selector:
+    matchLabels:
+      app: mapproxy-prod
+  template:
+    metadata:
+      labels:
+        app: mapproxy-prod
+    spec:
+      containers:
+      - name: mapproxy
+        volumeMounts:
+        - mountPath: /app/config
+          name: mapproxy-configmap
+      volumes:
+      - configMap:
+          name: mapproxy-configmap-prod
+          defaultMode: 292
+          optional: false
+        name: mapproxy-configmap
