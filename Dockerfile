@@ -4,8 +4,6 @@ FROM python:3.10.13-slim as builder_base_mapproxy
 MAINTAINER asi@dbca.wa.gov.au
 LABEL org.opencontainers.image.source https://github.com/dbca-wa/mapproxy
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=Australia/Perth
 RUN apt-get update -y \
   && apt-get upgrade -y \
   && apt-get install --no-install-recommends -y libgeos-dev libgdal-dev \
@@ -15,11 +13,11 @@ RUN apt-get update -y \
 # Install Python libs using Poetry.
 FROM builder_base_mapproxy as python_libs_mapproxy
 WORKDIR /app
-ENV POETRY_VERSION=1.5.1
-RUN pip install --upgrade pip && pip install "poetry==$POETRY_VERSION"
-COPY poetry.lock pyproject.toml /app/
+ARG POETRY_VERSION=1.6.1
+RUN pip install poetry=="${POETRY_VERSION}"
+COPY poetry.lock pyproject.toml ./
 RUN poetry config virtualenvs.create false \
-  && poetry install --no-interaction --no-ansi --without dev
+  && poetry install --no-interaction --no-ansi --only main
 
 # Create a non-root user.
 ARG UID=10001
