@@ -6,17 +6,17 @@ resources:
   - ingress.yaml
   - pdb.yaml
   - pvc.yaml
-labels:
-  - includeSelectors: true
-    pairs:
-      variant: prod
-images:
-  - name: ghcr.io/dbca-wa/mapproxy
-    newTag: 1.16.0
-patches:
-  - path: deployment_patch.yaml
-  - path: service_patch.yaml
 configMapGenerator:
   - name: mapproxy-configmap
     files:
       - mapproxy.yaml
+labels:
+  - includeSelectors: true
+    pairs:
+      variant: prod
+patches:
+  - path: deployment_patch.yaml
+  - path: service_patch.yaml
+images:
+  - name: ghcr.io/dbca-wa/mapproxy
+    newTag: 2.0.2
