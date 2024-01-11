@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: mapproxy-deployment
 spec:
-  replicas: 2
+  replicas: 1
   strategy:
     type: RollingUpdate
   template:
@@ -17,18 +17,28 @@ spec:
           value: "Australia/Perth"
         resources:
           requests:
-            memory: "64Mi"
+            memory: "128Mi"
             cpu: "10m"
           limits:
-            memory: "4096Mi"
+            memory: "2Gi"
             cpu: "1000m"
-        livenessProbe:
+        startupProbe:
           httpGet:
             path: /demo/
             port: 8080
             scheme: HTTP
           initialDelaySeconds: 5
-          periodSeconds: 3
+          periodSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+          timeoutSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /demo/
+            port: 8080
+            scheme: HTTP
+          initialDelaySeconds: 0
+          periodSeconds: 15
           failureThreshold: 3
           successThreshold: 1
           timeoutSeconds: 3
@@ -37,8 +47,8 @@ spec:
             path: /demo/
             port: 8080
             scheme: HTTP
-          initialDelaySeconds: 5
-          periodSeconds: 3
+          initialDelaySeconds: 0
+          periodSeconds: 15
           failureThreshold: 3
           successThreshold: 1
           timeoutSeconds: 3

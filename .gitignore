@@ -3,3 +3,4 @@ config.yaml
 mapproxy.yaml
 .python-version
 __pycache__/
+cache_data/
