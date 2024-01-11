@@ -12,4 +12,4 @@ local file or a configmap in Kubernetes).
 
 Example:
 
-    docker container run -p 8080:8080 -v /path/to/mapproxy.yaml:/app/config/mapproxy.yaml ghcr.io/dbca-wa/mapproxy
+    docker container run -p 8080:8080 -v $PWD/mapproxy.yaml:/app/config/mapproxy.yaml ghcr.io/dbca-wa/mapproxy
