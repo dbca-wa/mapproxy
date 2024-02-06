@@ -5,5 +5,5 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    app: mapproxy-uat
+    app: mapproxy-deployment
     variant: uat

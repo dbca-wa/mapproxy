@@ -3,15 +3,15 @@ kind: Deployment
 metadata:
   name: mapproxy-deployment
   labels:
-    app: mapproxy-uat
+    app: mapproxy-deployment
 spec:
   selector:
     matchLabels:
-      app: mapproxy-uat
+      app: mapproxy-deployment
   template:
     metadata:
       labels:
-        app: mapproxy-uat
+        app: mapproxy-deployment
     spec:
       initContainers:
       - name: chown-pvc
