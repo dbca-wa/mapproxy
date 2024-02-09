@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mapproxy-cache
 spec:
-  storageClassName: managed-csi-retain
+  storageClassName: managed-csi-premium
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
