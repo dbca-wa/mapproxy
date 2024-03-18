@@ -23,20 +23,20 @@ spec:
           - /cache_data
         volumeMounts:
           - mountPath: /cache_data
-            name: mapproxy-cache
+            name: mapproxy-cache-data
       containers:
       - name: mapproxy
         volumeMounts:
           - mountPath: /app/config
             name: mapproxy-configmap
           - mountPath: /cache_data
-            name: mapproxy-cache
+            name: mapproxy-cache-data
       volumes:
         - name: mapproxy-configmap
           configMap:
             name: mapproxy-configmap-prod
             defaultMode: 292
             optional: false
-        - name: mapproxy-cache
+        - name: mapproxy-cache-data
           persistentVolumeClaim:
-            claimName: mapproxy-cache-prod
+            claimName: mapproxy-cache-data-prod

@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mapproxy-cache
+  name: mapproxy-cache-data
 spec:
-  storageClassName: managed-csi-premium
+  storageClassName: azurefile-csi-premium
   volumeMode: Filesystem
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 32Gi
