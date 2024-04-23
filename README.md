@@ -19,3 +19,12 @@ local file or a ConfigMap in Kubernetes).
 Example using a local bind-mount file:
 
     docker container run -p 8080:8080 -v $PWD/mapproxy.yaml:/app/config/mapproxy.yaml ghcr.io/dbca-wa/mapproxy
+
+# Development
+
+Development of the containerised application is based on the
+installation instructions in the MapProxy documentation:
+https://mapproxy.github.io/mapproxy/latest/install.html
+
+Additional reference can be made to the GitHub project Dockerfile:
+https://github.com/mapproxy/mapproxy/blob/master/docker/Dockerfile
