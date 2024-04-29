@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: mapproxy-deployment
 spec:
+  replicas: 2
   strategy:
     type: RollingUpdate
   template:
