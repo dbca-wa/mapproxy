@@ -3,7 +3,7 @@ import multiprocessing
 
 bind = ":8080"
 # Don't start too many workers:
-workers = min(multiprocessing.cpu_count(), 8)
+workers = min(multiprocessing.cpu_count(), 4)
 # Longer worker timout:
 timeout = 90
 # Give workers an expiry:

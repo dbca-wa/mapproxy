@@ -8,12 +8,11 @@ license = "Apache-2.0"
 [tool.poetry.dependencies]
 python = "^3.11"
 mapproxy = "2.0.2"
-gevent = "23.9.1"
 pillow = "10.3.0"
 gunicorn = "22.0.0"
 pyyaml = "6.0.1"
 pyproj = "3.6.1"
-lxml = "5.2.1"
+lxml = "5.2.2"
 shapely = "2.0.4"
 
 [build-system]
