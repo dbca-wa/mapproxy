@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: mapproxy-deployment
 spec:
-  replicas: 2
   strategy:
     type: RollingUpdate
   template:
@@ -17,8 +16,8 @@ spec:
           value: "Australia/Perth"
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "10m"
+            memory: "200Mi"
+            cpu: "50m"
           limits:
             memory: "2Gi"
             cpu: "1000m"

@@ -5,14 +5,16 @@ resources:
   - ../../base
   - ingress.yaml
   - pdb.yaml
+  - pvc.yaml
+configMapGenerator:
+  - name: mapproxy-configmap
+    files:
+      - mapproxy.yaml
 labels:
   - includeSelectors: true
     pairs:
       variant: uat
 patches:
   - path: deployment_patch.yaml
+  - path: deployment_hpa_patch.yaml
   - path: service_patch.yaml
-configMapGenerator:
-  - name: mapproxy-configmap
-    files:
-      - mapproxy.yaml
