@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: mapproxy-cache-data
 spec:
-  storageClassName: azurefile-csi-premium-zrs
+  storageClassName: azurefile-csi-premium-retain-zrs
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
