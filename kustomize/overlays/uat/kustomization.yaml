@@ -10,6 +10,7 @@ configMapGenerator:
   - name: mapproxy-configmap
     files:
       - mapproxy.yaml
+      - seed.yaml
 labels:
   - includeSelectors: true
     pairs:

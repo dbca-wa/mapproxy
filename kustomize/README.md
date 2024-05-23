@@ -4,8 +4,11 @@ Declarative management of MapProxy Kubernetes resources using Kustomize.
 
 # How to use
 
-Within an overlay directory, create a `mapproxy.yaml` file to configure the
-proxied tile layers.
+Within each overlay directory, create a `mapproxy.yaml` file to configure the
+proxied tile layers and a `seed.yaml` to configure behaviour of the
+`mapproxy-seed` tool. Reference:
+
+* https://mapproxy.github.io/mapproxy/latest/configuration.html
 
 Review the built resource output using `kustomize`:
 

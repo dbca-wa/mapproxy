@@ -1,6 +1,7 @@
 .env
 config.yaml
 mapproxy.yaml
+seed.yaml
 .python-version
 __pycache__/
 cache_data/

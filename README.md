@@ -28,3 +28,7 @@ https://mapproxy.github.io/mapproxy/latest/install.html
 
 Additional reference can be made to the GitHub project Dockerfile:
 https://github.com/mapproxy/mapproxy/blob/master/docker/Dockerfile
+
+# MapProxy configuration
+
+Reference: https://mapproxy.github.io/mapproxy/latest/configuration.html
