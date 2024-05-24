@@ -28,7 +28,6 @@ RUN groupadd -g "${GID}" appuser \
 # Install the project.
 FROM python_libs_mapproxy
 COPY gunicorn.py wsgi.py ./
-RUN ln -s /app/config/mapproxy.yaml /app/mapproxy.yaml
 
 USER ${UID}
 EXPOSE 8080
