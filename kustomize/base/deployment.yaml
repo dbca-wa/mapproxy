@@ -60,8 +60,9 @@ spec:
               - ALL
           readOnlyRootFilesystem: true
         volumeMounts:
-          - mountPath: /tmp
-            name: tmpfs-ram
+          - name: tmpfs-ram
+            mountPath: /tmp
+            subPath: cache_data
       volumes:
         - name: tmpfs-ram
           emptyDir:

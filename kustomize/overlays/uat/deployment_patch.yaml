@@ -13,30 +13,14 @@ spec:
       labels:
         app: mapproxy-deployment
     spec:
-      initContainers:
-      - name: chown-pvc
-        image: busybox
-        command:
-          - /bin/chown
-          - -R
-          - "10001:10001"
-          - /cache_data
-        volumeMounts:
-          - mountPath: /cache_data
-            name: mapproxy-cache-data
       containers:
       - name: mapproxy
         volumeMounts:
           - mountPath: /app/config
             name: mapproxy-configmap
-          - mountPath: /cache_data
-            name: mapproxy-cache-data
       volumes:
         - name: mapproxy-configmap
           configMap:
             name: mapproxy-configmap-uat
             defaultMode: 292
             optional: false
-        - name: mapproxy-cache-data
-          persistentVolumeClaim:
-            claimName: mapproxy-cache-data-uat
