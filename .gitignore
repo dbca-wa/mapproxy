@@ -1,5 +1,5 @@
 .env
-config.yaml
+config/
 mapproxy.yaml
 seed.yaml
 .python-version
