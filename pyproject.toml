@@ -17,7 +17,7 @@ shapely = "2.0.6"
 azure-storage-blob = "12.23.1"
 
 [tool.poetry.group.dev.dependencies]
-ipython = "^8.28.0"
+ipython = "^8.29.0"
 setuptools = "^75.2.0"
 
 [build-system]
