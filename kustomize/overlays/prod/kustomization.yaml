@@ -23,4 +23,4 @@ patches:
   - path: service_patch.yaml
 images:
   - name: ghcr.io/dbca-wa/mapproxy
-    newTag: 3.0.1
+    newTag: 3.1.0
