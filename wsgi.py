@@ -3,7 +3,7 @@ import logging
 from mapproxy.wsgiapp import make_wsgi_app
 
 # Configure logging.
-logging.config.fileConfig("config/log.ini")
+logging.config.fileConfig("config/logging.ini")
 
 # Set the logging level for all azure-* libraries (the azure-storage-blob library uses this one).
 # Reference: https://learn.microsoft.com/en-us/azure/developer/python/sdk/azure-sdk-logging

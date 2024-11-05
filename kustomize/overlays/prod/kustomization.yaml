@@ -10,6 +10,9 @@ configMapGenerator:
     files:
       - mapproxy.yaml
       - seed.yaml
+      - logging.ini
+generatorOptions:
+  disableNameSuffixHash: true
 labels:
   - includeSelectors: true
     pairs:
