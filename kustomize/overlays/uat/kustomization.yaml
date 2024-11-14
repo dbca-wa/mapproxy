@@ -5,6 +5,7 @@ resources:
   - ../../base
   - ingress.yaml
   - pdb.yaml
+  - pvc.yaml
 configMapGenerator:
   - name: mapproxy-configmap
     files:

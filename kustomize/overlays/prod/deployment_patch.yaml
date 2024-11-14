@@ -14,13 +14,18 @@ spec:
         app: mapproxy-deployment
     spec:
       containers:
-      - name: mapproxy
-        volumeMounts:
-          - mountPath: /app/config
-            name: mapproxy-configmap
+        - name: mapproxy
+          volumeMounts:
+            - name: mapproxy-configmap
+              mountPath: /app/config
+            - name: mapproxy-lock-data
+              mountPath: /mnt/lock
       volumes:
         - name: mapproxy-configmap
           configMap:
             name: mapproxy-configmap-prod
             defaultMode: 292
             optional: false
+        - name: mapproxy-lock-data
+          persistentVolumeClaim:
+            claimName: mapproxy-lock-data-prod
