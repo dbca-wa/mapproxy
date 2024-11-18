@@ -668,13 +668,13 @@ source = ["Cython (>=3.0.11)"]
 
 [[package]]
 name = "mapproxy"
-version = "3.1.0"
+version = "3.1.1"
 description = "An accelerating proxy for tile and web map services"
 optional = false
 python-versions = "*"
 files = [
-    {file = "MapProxy-3.1.0-py3-none-any.whl", hash = "sha256:558e730641eb002101ed88fd45fed9b1692cddfafdcc0d66eeeb318c8a355a97"},
-    {file = "MapProxy-3.1.0.tar.gz", hash = "sha256:a473f5554723d89b04186a41ee15f8463d135bc41ade53f885228d7e5774f1c8"},
+    {file = "MapProxy-3.1.1-py3-none-any.whl", hash = "sha256:4873a24e4bd41efa68ee376a746d1a1bd1e5b70f7732d74b294143f47f8fa711"},
+    {file = "MapProxy-3.1.1.tar.gz", hash = "sha256:f35b308d57b2b2d64d2ba3cfe8643df9b00d2e5452c2a5f81cae599f163bda3e"},
 ]
 
 [package.dependencies]
@@ -683,7 +683,7 @@ jsonschema = ">=4"
 Pillow = "<2.4.0 || >2.4.0,<8.3.0 || >8.3.0,<8.3.1 || >8.3.1"
 pyproj = ">=2"
 PyYAML = ">=3.0"
-werkzeug = "1.0.1"
+werkzeug = "<4"
 
 [[package]]
 name = "matplotlib-inline"
@@ -1386,4 +1386,4 @@ watchdog = ["watchdog"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "138e1740ee1dafa13935637cfd47e99625570bdd1dc037f4c236ff8d5fc7b4ce"
+content-hash = "b3e05d59cb4c521d225758aaf91c51cd1d2a4a160c08b0d77f35e821c17e0389"
