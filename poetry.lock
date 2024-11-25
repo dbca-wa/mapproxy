@@ -668,13 +668,13 @@ source = ["Cython (>=3.0.11)"]
 
 [[package]]
 name = "mapproxy"
-version = "3.1.1"
+version = "3.1.2"
 description = "An accelerating proxy for tile and web map services"
 optional = false
 python-versions = "*"
 files = [
-    {file = "MapProxy-3.1.1-py3-none-any.whl", hash = "sha256:4873a24e4bd41efa68ee376a746d1a1bd1e5b70f7732d74b294143f47f8fa711"},
-    {file = "MapProxy-3.1.1.tar.gz", hash = "sha256:f35b308d57b2b2d64d2ba3cfe8643df9b00d2e5452c2a5f81cae599f163bda3e"},
+    {file = "MapProxy-3.1.2-py3-none-any.whl", hash = "sha256:3742ca45a3fc717581e77963f2b246c038b9ffc31c872f6d3305dfa130fd852d"},
+    {file = "MapProxy-3.1.2.tar.gz", hash = "sha256:1a6b790032d0e3330de43578069eee346d36c84e28a90a6a157b6c7c766b5ffe"},
 ]
 
 [package.dependencies]
@@ -1445,4 +1445,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "544adfbec0f65f5dd7a933deb466f6a334112240ad9d785c66ed0a13ca8d7866"
+content-hash = "f5beefc1e45905f3335cdbc19aa75a5e63ae3c0e0d88b69d9530d685da30954f"
