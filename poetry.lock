@@ -668,13 +668,13 @@ source = ["Cython (>=3.0.11)"]
 
 [[package]]
 name = "mapproxy"
-version = "3.1.1"
+version = "3.1.2"
 description = "An accelerating proxy for tile and web map services"
 optional = false
 python-versions = "*"
 files = [
-    {file = "MapProxy-3.1.1-py3-none-any.whl", hash = "sha256:4873a24e4bd41efa68ee376a746d1a1bd1e5b70f7732d74b294143f47f8fa711"},
-    {file = "MapProxy-3.1.1.tar.gz", hash = "sha256:f35b308d57b2b2d64d2ba3cfe8643df9b00d2e5452c2a5f81cae599f163bda3e"},
+    {file = "MapProxy-3.1.2-py3-none-any.whl", hash = "sha256:3742ca45a3fc717581e77963f2b246c038b9ffc31c872f6d3305dfa130fd852d"},
+    {file = "MapProxy-3.1.2.tar.gz", hash = "sha256:1a6b790032d0e3330de43578069eee346d36c84e28a90a6a157b6c7c766b5ffe"},
 ]
 
 [package.dependencies]
@@ -1265,23 +1265,23 @@ files = [
 
 [[package]]
 name = "setuptools"
-version = "75.5.0"
+version = "75.6.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "setuptools-75.5.0-py3-none-any.whl", hash = "sha256:87cb777c3b96d638ca02031192d40390e0ad97737e27b6b4fa831bea86f2f829"},
-    {file = "setuptools-75.5.0.tar.gz", hash = "sha256:5c4ccb41111392671f02bb5f8436dfc5a9a7185e80500531b133f5775c4163ef"},
+    {file = "setuptools-75.6.0-py3-none-any.whl", hash = "sha256:ce74b49e8f7110f9bf04883b730f4765b774ef3ef28f722cce7c273d253aaf7d"},
+    {file = "setuptools-75.6.0.tar.gz", hash = "sha256:8199222558df7c86216af4f84c30e9b34a61d8ba19366cc914424cdbd28252f6"},
 ]
 
 [package.extras]
 check = ["pytest-checkdocs (>=2.4)", "pytest-ruff (>=0.2.1)", "ruff (>=0.7.0)"]
-core = ["importlib-metadata (>=6)", "jaraco.collections", "jaraco.functools (>=4)", "jaraco.text (>=3.7)", "more-itertools", "more-itertools (>=8.8)", "packaging", "packaging (>=24.2)", "platformdirs (>=4.2.2)", "tomli (>=2.0.1)", "wheel (>=0.43.0)"]
+core = ["importlib_metadata (>=6)", "jaraco.collections", "jaraco.functools (>=4)", "jaraco.text (>=3.7)", "more_itertools", "more_itertools (>=8.8)", "packaging", "packaging (>=24.2)", "platformdirs (>=4.2.2)", "tomli (>=2.0.1)", "wheel (>=0.43.0)"]
 cover = ["pytest-cov"]
 doc = ["furo", "jaraco.packaging (>=9.3)", "jaraco.tidelift (>=1.4)", "pygments-github-lexers (==0.0.5)", "pyproject-hooks (!=1.1)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-favicon", "sphinx-inline-tabs", "sphinx-lint", "sphinx-notfound-page (>=1,<2)", "sphinx-reredirects", "sphinxcontrib-towncrier", "towncrier (<24.7)"]
 enabler = ["pytest-enabler (>=2.2)"]
 test = ["build[virtualenv] (>=1.0.3)", "filelock (>=3.4.0)", "ini2toml[lite] (>=0.14)", "jaraco.develop (>=7.21)", "jaraco.envs (>=2.2)", "jaraco.path (>=3.2.0)", "jaraco.test (>=5.5)", "packaging (>=24.2)", "pip (>=19.1)", "pyproject-hooks (!=1.1)", "pytest (>=6,!=8.1.*)", "pytest-home (>=0.5)", "pytest-perf", "pytest-subprocess", "pytest-timeout", "pytest-xdist (>=3)", "tomli-w (>=1.0.0)", "virtualenv (>=13.0.0)", "wheel (>=0.44.0)"]
-type = ["importlib-metadata (>=7.0.2)", "jaraco.develop (>=7.21)", "mypy (>=1.12,<1.14)", "pytest-mypy"]
+type = ["importlib_metadata (>=7.0.2)", "jaraco.develop (>=7.21)", "mypy (>=1.12,<1.14)", "pytest-mypy"]
 
 [[package]]
 name = "shapely"
@@ -1445,4 +1445,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "544adfbec0f65f5dd7a933deb466f6a334112240ad9d785c66ed0a13ca8d7866"
+content-hash = "f5beefc1e45905f3335cdbc19aa75a5e63ae3c0e0d88b69d9530d685da30954f"
