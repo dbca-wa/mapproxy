@@ -2,16 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mapproxy-deployment
-  labels:
-    app: mapproxy-deployment
 spec:
-  selector:
-    matchLabels:
-      app: mapproxy-deployment
   template:
-    metadata:
-      labels:
-        app: mapproxy-deployment
     spec:
       containers:
         - name: mapproxy

@@ -2,67 +2,75 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mapproxy-deployment
+  labels:
+    app: mapproxy-deployment
 spec:
+  selector:
+    matchLabels:
+      app: mapproxy-deployment
   strategy:
     type: RollingUpdate
   template:
+    metadata:
+      labels:
+        app: mapproxy-deployment
     spec:
       containers:
-      - name: mapproxy
-        image: ghcr.io/dbca-wa/mapproxy
-        imagePullPolicy: Always
-        env:
-        - name: TZ
-          value: "Australia/Perth"
-        resources:
-          requests:
-            memory: "150Mi"
-            cpu: "25m"
-          limits:
-            memory: "2Gi"
-            cpu: "1000m"
-        startupProbe:
-          httpGet:
-            path: /demo/
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: 5
-          periodSeconds: 5
-          failureThreshold: 3
-          successThreshold: 1
-          timeoutSeconds: 3
-        livenessProbe:
-          httpGet:
-            path: /demo/
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: 0
-          periodSeconds: 15
-          failureThreshold: 3
-          successThreshold: 1
-          timeoutSeconds: 3
-        readinessProbe:
-          httpGet:
-            path: /demo/
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: 0
-          periodSeconds: 15
-          failureThreshold: 3
-          successThreshold: 1
-          timeoutSeconds: 3
-        securityContext:
-          runAsNonRoot: true
-          privileged: false
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-              - ALL
-          readOnlyRootFilesystem: true
-        volumeMounts:
-          - name: tmpfs-ram
-            mountPath: /tmp
-            subPath: cache_data
+        - name: mapproxy
+          image: ghcr.io/dbca-wa/mapproxy
+          imagePullPolicy: Always
+          env:
+            - name: TZ
+              value: "Australia/Perth"
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "5m"
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
+          startupProbe:
+            httpGet:
+              path: /demo/
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /demo/
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 15
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /demo/
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 0
+            periodSeconds: 15
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 3
+          securityContext:
+            runAsNonRoot: true
+            privileged: false
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - name: tmpfs-ram
+              mountPath: /tmp
+              subPath: cache_data
       volumes:
         - name: tmpfs-ram
           emptyDir:
