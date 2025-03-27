@@ -21,14 +21,14 @@ spec:
           imagePullPolicy: Always
           env:
             - name: TZ
-              value: "Australia/Perth"
+              value: 'Australia/Perth'
           resources:
             requests:
-              memory: "100Mi"
-              cpu: "5m"
+              memory: '100Mi'
+              cpu: '5m'
             limits:
-              memory: "2Gi"
-              cpu: "1000m"
+              memory: '2Gi'
+              cpu: '1000m'
           startupProbe:
             httpGet:
               path: /demo/
@@ -74,6 +74,7 @@ spec:
       volumes:
         - name: tmpfs-ram
           emptyDir:
-            medium: "Memory"
+            medium: 'Memory'
       restartPolicy: Always
       terminationGracePeriodSeconds: 180
+      automountServiceAccountToken: false
