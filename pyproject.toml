@@ -1,6 +1,6 @@
 [project]
 name = "dbcamapproxy"
-version = "4.0.1"
+version = "4.0.2"
 description = "DBCA internal MapProxy service application"
 authors = [{ name = "Ashley Felton", email = "ashley.felton@dbca.wa.gov.au" }]
 license = "Apache-2.0"
