@@ -7,14 +7,14 @@ license = "Apache-2.0"
 readme = "README.md"
 requires-python = ">=3.12,<4.0"
 dependencies = [
-  "mapproxy==4.0.1",
-  "pillow==11.1.0",
+  "mapproxy==4.0.2",
+  "pillow==11.2.1",
   "gunicorn==23.0.0",
   "pyyaml==6.0.2",
   "pyproj==3.7.1",
-  "lxml==5.3.1",
-  "shapely==2.0.7",
-  "azure-storage-blob==12.25.0",
+  "lxml==5.3.2",
+  "shapely==2.1.0",
+  "azure-storage-blob==12.25.1",
 ]
 
 [dependency-groups]
