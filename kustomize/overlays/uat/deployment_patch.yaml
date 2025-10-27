@@ -21,8 +21,3 @@ spec:
         - name: mapproxy-lock-data
           persistentVolumeClaim:
             claimName: mapproxy-lock-data-uat
-      tolerations:
-        - effect: NoSchedule
-          key: kubernetes.azure.com/scalesetpriority
-          operator: Equal
-          value: spot
