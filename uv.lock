@@ -49,6 +49,15 @@ wheels = [
 ]
 
 [[package]]
+name = "babel"
+version = "2.17.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/7d/6b/d52e42361e1aa00709585ecc30b3f9684b3ab62530771402248b1b1d6240/babel-2.17.0.tar.gz", hash = "sha256:0c54cffb19f690cdcc52a3b50bcbf71e07a808d1c80d549f2459b9d2cf0afb9d", size = 9951852, upload-time = "2025-02-01T15:17:41.026Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b7/b8/3fe70c75fe32afc4bb507f75563d39bc5642255d1d94f1f23604725780bf/babel-2.17.0-py3-none-any.whl", hash = "sha256:4d0b53093fdfb4b21c92b5213dba5a1b23885afa8383709427046b21c366e5f2", size = 10182537, upload-time = "2025-02-01T15:17:37.39Z" },
+]
+
+[[package]]
 name = "certifi"
 version = "2025.10.5"
 source = { registry = "https://pypi.org/simple" }
@@ -227,7 +236,7 @@ dev = [
 requires-dist = [
     { name = "azure-storage-blob", specifier = "==12.27.0" },
     { name = "gunicorn", specifier = "==23.0.0" },
-    { name = "mapproxy", specifier = "==5.1.1" },
+    { name = "mapproxy", specifier = "==6.0.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -336,6 +345,18 @@ wheels = [
 ]
 
 [[package]]
+name = "jinja2"
+version = "3.1.6"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "markupsafe" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/df/bf/f7da0350254c0ed7c72f3e33cef02e048281fec7ecec5f032d4aac52226b/jinja2-3.1.6.tar.gz", hash = "sha256:0137fb05990d35f1275a587e9aee6d56da821fc83491a0fb838183be43f66d6d", size = 245115, upload-time = "2025-03-05T20:05:02.478Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/62/a1/3d680cbfd5f4b8f15abc1d571870c5fc3e594bb582bc3b64ea099db13e56/jinja2-3.1.6-py3-none-any.whl", hash = "sha256:85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67", size = 134899, upload-time = "2025-03-05T20:05:00.369Z" },
+]
+
+[[package]]
 name = "jsonschema"
 version = "4.25.1"
 source = { registry = "https://pypi.org/simple" }
@@ -426,10 +447,12 @@ wheels = [
 
 [[package]]
 name = "mapproxy"
-version = "5.1.1"
+version = "6.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
+    { name = "babel" },
     { name = "future" },
+    { name = "jinja2" },
     { name = "jsonschema" },
     { name = "lxml" },
     { name = "pillow", marker = "python_full_version < '3.14'" },
@@ -438,9 +461,9 @@ dependencies = [
     { name = "shapely" },
     { name = "werkzeug" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/08/9a/a2141736315337d427310b0d51759b67f56aef540ca3f540cad890685a54/mapproxy-5.1.1.tar.gz", hash = "sha256:df7dc32a02f8cd280b541d1ea5e7b0b0f0a4d1f3b7ca173bfad4410cec163389", size = 1772975, upload-time = "2025-10-01T08:47:01.318Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/c0/01/3e5ee20ab194ba5a5a97bf24c46a077f27a1c5cfd81e98fa2afa08aa2e28/mapproxy-6.0.0.tar.gz", hash = "sha256:1c82480dec8ed61504bf669cea2253ccd0e7127fb287ec3b4f34569f696d25b4", size = 2720861, upload-time = "2025-10-22T11:16:01.638Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ab/80/9cd394076d6c537c02c463c0e8e65f798db6cc7bb963ec39f466ff27a73d/mapproxy-5.1.1-py3-none-any.whl", hash = "sha256:de49d9a4dd12159ddf744e3640383d3a85a67c8d50bd0b26c1194d2c54d68798", size = 1734140, upload-time = "2025-10-01T08:46:59.141Z" },
+    { url = "https://files.pythonhosted.org/packages/6c/67/68515748468e3021f7e40c3834af691b98c6c72755355ac5ecc4c549f3b3/mapproxy-6.0.0-py3-none-any.whl", hash = "sha256:6d150bf82131091abe550e3af50a290fd8add225606517a27bdb96876ed0792d", size = 2706575, upload-time = "2025-10-22T11:15:59.394Z" },
 ]
 
 [[package]]
