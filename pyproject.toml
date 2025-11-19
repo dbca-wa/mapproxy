@@ -1,15 +1,15 @@
 [project]
 name = "dbcamapproxy"
-version = "5.1.1"
+version = "6.0.1"
 description = "DBCA internal MapProxy service application"
 authors = [{ name = "Ashley Felton", email = "ashley.felton@dbca.wa.gov.au" }]
 license = "Apache-2.0"
 readme = "README.md"
 requires-python = ">=3.13,<4.0"
 dependencies = [
-  "mapproxy==5.1.1",
+  "mapproxy==6.0.1",
   "gunicorn==23.0.0",
-  "azure-storage-blob==12.27.0",
+  "azure-storage-blob==12.27.1",
 ]
 
 [dependency-groups]
