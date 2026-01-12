@@ -9,11 +9,11 @@ requires-python = ">=3.13,<4.0"
 dependencies = [
   "mapproxy==6.0.1",
   "gunicorn==23.0.0",
-  "azure-storage-blob==12.27.1",
+  "azure-storage-blob==12.28.0",
 ]
 
 [dependency-groups]
-dev = ["ipython>=9.6.0"]
+dev = ["ipython>=9.9.0"]
 
 [tool.ruff]
 line-length = 140
