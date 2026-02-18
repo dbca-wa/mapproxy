@@ -8,7 +8,7 @@ readme = "README.md"
 requires-python = ">=3.13,<4.0"
 dependencies = [
   "mapproxy==6.0.1",
-  "gunicorn==25.0.3",
+  "gunicorn==25.1.0",
   "azure-storage-blob==12.28.0",
   "pillow==12.1.1",
 ]
