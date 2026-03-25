@@ -5,7 +5,7 @@ LABEL org.opencontainers.image.source=https://github.com/dbca-wa/mapproxy
 
 # Install system packages required to run the project
 RUN apt-get update -y \
-  && apt-get install -y --no-install-recommends gdal-bin libgdal36 libgeos-c1t64 \
+  && apt-get install -y --no-install-recommends gdal-bin libgdal36 libgeos-c1t64 gcc g++ \
   # Run shared library linker after installing packages
   && ldconfig \
   && rm -rf /var/lib/apt/lists/*
