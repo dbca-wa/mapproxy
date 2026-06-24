@@ -77,7 +77,7 @@ spec:
           emptyDir:
             medium: 'Memory'
       restartPolicy: Always
-      terminationGracePeriodSeconds: 180
+      terminationGracePeriodSeconds: 60
       automountServiceAccountToken: false
       tolerations:
         - key: arch
