@@ -9,7 +9,7 @@ requires-python = ">=3.13,<4.0"
 dependencies = [
   "mapproxy==6.1.1",
   "gunicorn[fast]==26.0.0",
-  "azure-storage-blob==12.29.0",
+  "azure-storage-blob==12.30.0",
   "pillow==12.2.0",
   "requests==2.34.2",
 ]
