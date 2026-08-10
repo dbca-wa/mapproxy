@@ -1,21 +1,21 @@
 # syntax=docker/dockerfile:1
 
-# ---- Builder stage ----
-FROM dhi.io/python:3.13-debian13-dev AS builder-mapproxy
+# ---- Builder stage: compiliers and libraries ----
+FROM dhi.io/python:3.13-debian13-dev AS builder
 
 RUN apt-get update -y \
   && apt-get install -y --no-install-recommends \
+  gcc \
+  g++ \
   gdal-bin \
   libgdal36 \
   libgeos-c1t64 \
-  gcc \
-  g++ \
   && rm -rf /var/lib/apt/lists/*
 
-# Import uv to install dependencies
-COPY --from=ghcr.io/astral-sh/uv:0.11 /uv /bin/
 WORKDIR /app
-COPY pyproject.toml uv.lock ./
+COPY gunicorn.py wsgi.py pyproject.toml uv.lock ./
+
+COPY --from=ghcr.io/astral-sh/uv:0.12 /uv /bin/
 RUN uv sync \
   --no-group dev \
   --link-mode=copy \
@@ -24,8 +24,8 @@ RUN uv sync \
   --frozen \
   && rm -rf /bin/uv uv.lock
 
-# ---- Runtime stage ----
-FROM dhi.io/python:3.13-debian13-dev
+# ---- runtime stage: minimal packages needed to run the application ----
+FROM dhi.io/python:3.13-debian13-dev AS runtime
 LABEL org.opencontainers.image.authors=asi@dbca.wa.gov.au
 LABEL org.opencontainers.image.source=https://github.com/dbca-wa/mapproxy
 
@@ -45,14 +45,12 @@ ENV PYTHONUNBUFFERED=1 \
   PATH="/app/.venv/bin:$PATH"
 
 WORKDIR /app
+COPY --from=builder --chown=nonroot:nonroot /app /app
 
-# Copy installed virtualenv from builder-mapproxy
-COPY --from=builder-mapproxy /app /app
+ENV PYTHONUNBUFFERED=1 \
+  PYTHONDONTWRITEBYTECODE=1 \
+  PATH="/app/.venv/bin:$PATH"
 
-# Copy the remaining project files to finish building the project
-COPY --chown=nonroot:nonroot gunicorn.py wsgi.py ./
-
-# Run the project as the nonroot user
 USER nonroot
 EXPOSE 8080
 CMD ["gunicorn", "--config", "gunicorn.py", "wsgi"]
