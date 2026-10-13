@@ -1,43 +1,43 @@
 # syntax=docker/dockerfile:1
+# Args to centralise versions.
+ARG PYTHON_VERSION=3.13-debian13-dev
 
-# ---- Builder stage: compiliers and libraries ----
-FROM dhi.io/python:3.13-debian13-dev AS builder
+# ---- Builder stage ----
+FROM dhi.io/python:${PYTHON_VERSION} AS builder
 
-RUN apt-get update -y \
-  && apt-get install -y --no-install-recommends \
+RUN <<EOF
+set -euxo pipefail
+apt-get update
+apt-get install -y --no-install-recommends \
   gcc \
   g++ \
   gdal-bin \
   libgdal36 \
-  libgeos-c1t64 \
-  && rm -rf /var/lib/apt/lists/*
+  libgeos-c1t64
+EOF
 
 WORKDIR /app
-COPY gunicorn.py wsgi.py pyproject.toml uv.lock ./
-
 COPY --from=ghcr.io/astral-sh/uv:0.12 /uv /bin/
-RUN uv sync \
-  --no-group dev \
-  --link-mode=copy \
-  --compile-bytecode \
-  --no-python-downloads \
-  --frozen \
-  && rm -rf /bin/uv uv.lock
+COPY pyproject.toml uv.lock ./
+RUN uv sync --no-group dev --link-mode=copy --compile-bytecode --no-python-downloads --frozen
 
 # ---- runtime stage: minimal packages needed to run the application ----
-FROM dhi.io/python:3.13-debian13-dev AS runtime
-LABEL org.opencontainers.image.authors=asi@dbca.wa.gov.au
-LABEL org.opencontainers.image.source=https://github.com/dbca-wa/mapproxy
+FROM dhi.io/python:${PYTHON_VERSION} AS runtime
+LABEL org.opencontainers.image.source="https://github.com/dbca-wa/mapproxy" \
+  org.opencontainers.image.description="DBCA MapProxy" \
+  org.opencontainers.image.vendor="DBCA" \
+  org.opencontainers.image.authors="asi@dbca.wa.gov.au"
 
-# Install system packages required to run the project
-RUN apt-get update -y \
-  && apt-get install -y --no-install-recommends \
+RUN <<EOF
+set -euxo pipefail
+apt-get update
+apt-get install -y --no-install-recommends \
   gdal-bin \
   libgdal36 \
-  libgeos-c1t64 \
-  # Run shared library linker after installing spatial packages
-  && ldconfig \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+  libgeos-c1t64
+ldconfig
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+EOF
 
 # Environment variables
 ENV PYTHONUNBUFFERED=1 \
@@ -45,11 +45,8 @@ ENV PYTHONUNBUFFERED=1 \
   PATH="/app/.venv/bin:$PATH"
 
 WORKDIR /app
+# Copy installed virtualenv from builder
 COPY --from=builder --chown=nonroot:nonroot /app /app
-
-ENV PYTHONUNBUFFERED=1 \
-  PYTHONDONTWRITEBYTECODE=1 \
-  PATH="/app/.venv/bin:$PATH"
 
 USER nonroot
 EXPOSE 8080
