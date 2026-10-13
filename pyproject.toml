@@ -8,14 +8,14 @@ readme = "README.md"
 requires-python = ">=3.13,<4.0"
 dependencies = [
   "mapproxy==7.0.0",
-  "gunicorn[fast]==26.0.0",
-  "azure-storage-blob==12.30.0",
+  "gunicorn[fast]==26.2.0",
+  "azure-storage-blob==12.31.0",
   "pillow==12.3.0",
   "requests==2.34.2",
 ]
 
 [dependency-groups]
-dev = ["ipython>=9.15.0"]
+dev = ["ipython>=9.17.1"]
 
 [tool.ruff]
 line-length = 140
