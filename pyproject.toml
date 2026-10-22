@@ -10,7 +10,7 @@ dependencies = [
   "mapproxy==7.0.0",
   "gunicorn[fast]==26.2.0",
   "azure-storage-blob==12.31.0",
-  "pillow==12.3.0",
+  "pillow==13.0.0",
   "requests==2.34.2",
 ]
 
