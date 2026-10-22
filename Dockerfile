@@ -48,6 +48,9 @@ WORKDIR /app
 # Copy installed virtualenv from builder
 COPY --from=builder --chown=nonroot:nonroot /app /app
 
+# Copy the remaining project files to finish building the project
+COPY --chown=nonroot:nonroot gunicorn.py pyproject.toml wsgi.py ./
+
 USER nonroot
 EXPOSE 8080
 CMD ["gunicorn", "--config", "gunicorn.py", "wsgi"]
