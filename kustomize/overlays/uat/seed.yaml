@@ -1,0 +1,9 @@
+seeds:
+  lga-boundaries:
+    caches: [lga-boundaries-cache]
+    grids: [default]
+    levels:
+      from: 1
+      to: 17
+    refresh_before:
+      days: 90

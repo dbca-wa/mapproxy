@@ -12,6 +12,11 @@ configMapGenerator:
       - mapproxy.yaml
       - seed.yaml
       - logging.ini
+secretGenerator:
+  - name: mapproxy-env
+    type: Opaque
+    envs:
+      - .env
 generatorOptions:
   disableNameSuffixHash: true
 labels:

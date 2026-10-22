@@ -1,0 +1,286 @@
+globals:
+  cache:
+    base_dir: /tmp/cache_data
+    tile_lock_dir: /mnt/lock
+    azureblob:
+      container_name: mapproxy
+      connection_string: '${AZURE_STORAGE_CONNECTION_STRING}'
+  http:
+    ssl_no_cert_checks: true
+  image:
+    resampling_method: bilinear
+
+services:
+  demo:
+  wms:
+    image_formats: ['image/png', 'image/jpeg']
+    md:
+      title: DBCA MapProxy
+      abstract: Proxied spatial services for DBCA web applications
+      contact:
+        organization: Department of Biodiversity, Conservation and Attractions
+        state: Western Australia
+        country: Australia
+        email: oim.servicedesk@dbca.wa.gov.au
+      access_constraints: 'This service is intended for internal DBCA usage only'
+
+grids:
+  default:
+    base: GLOBAL_WEBMERCATOR
+    tile_size: [512, 512]
+
+sources:
+  mapbox-dbca-basemap:
+    type: tile
+    grid: default
+    url: 'https://api.mapbox.com/styles/v1/dpawasi/ckigwmxrx606g19msw0g882gj/tiles/%(z)s/%(x)s/%(y)s?access_token=${MAPBOX_ACCESS_TOKEN}'
+  mapbox-light-tile:
+    type: tile
+    grid: default
+    url: 'https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/%(z)s/%(x)s/%(y)s?access_token=${MAPBOX_ACCESS_TOKEN}'
+  mapbox-dark-tile:
+    type: tile
+    grid: default
+    url: 'https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/%(z)s/%(x)s/%(y)s?access_token=${MAPBOX_ACCESS_TOKEN}'
+  mapbox-satellite-tile:
+    type: tile
+    grid: default
+    url: 'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/%(z)s/%(x)s/%(y)s?access_token=${MAPBOX_ACCESS_TOKEN}'
+  mapbox-streets:
+    type: tile
+    grid: default
+    url: 'https://api.mapbox.com/styles/v1/dpawasi/ckvrinyyr03oi14mf2blinu2m/tiles/%(z)s/%(x)s/%(y)s?access_token=${MAPBOX_ACCESS_TOKEN}'
+  dbca-regions:
+    type: wms
+    req:
+      url: 'https://${AUTH2_SYSTEM_USER}@kb-api.dbca.wa.gov.au/geoserver/ows?'
+      layers: kaartdijin-boodja-public:CPT_DBCA_REGIONS
+      transparent: true
+      tiled: true
+      format: image/png
+  dbca-districts:
+    type: wms
+    req:
+      url: 'https://${AUTH2_SYSTEM_USER}@kb-api.dbca.wa.gov.au/geoserver/ows?'
+      layers: kaartdijin-boodja-public:CPT_DBCA_DISTRICTS
+      transparent: true
+      tiled: true
+      format: image/png
+  dbca-tenure:
+    type: wms
+    req:
+      url: 'https://${AUTH2_SYSTEM_USER}@kb-api.dbca.wa.gov.au/geoserver/ows?'
+      layers: kaartdijin-boodja-public:CPT_DBCA_LEGISLATED_TENURE
+      transparent: true
+      tiled: true
+      format: image/png
+  dbca-regional-parks:
+    type: wms
+    req:
+      url: 'https://${AUTH2_SYSTEM_USER}@kb-api.dbca.wa.gov.au/geoserver/ows?'
+      layers: kaartdijin-boodja-private:CPT_REGIONAL_PARKS
+      transparent: true
+      tiled: true
+      format: image/png
+  dbca-cadastre:
+    type: wms
+    req:
+      url: 'https://${AUTH2_SYSTEM_USER}@kb-api.dbca.wa.gov.au/geoserver/ows?'
+      layers: kaartdijin-boodja-private:CPT_CADASTRE_UCL_1PL
+      transparent: true
+      tiled: true
+      format: image/png
+  wa-coast:
+    type: wms
+    req:
+      url: 'https://${AUTH2_SYSTEM_USER}@kb-api.dbca.wa.gov.au/geoserver/ows?'
+      layers: kaartdijin-boodja-private:WA_COAST_SMOOTHED
+      transparent: true
+      tiled: true
+      format: image/png
+  virtual-mosaic:
+    type: wms
+    req:
+      url: 'https://${SLIP_USER_AUTH}@services.slip.wa.gov.au/arcgis/services/Landgate_Subscription_Imagery/WANow/MapServer/WMSServer'
+      layers: 1
+      transparent: true
+      tiled: true
+      format: image/png
+  ibra7-aust:
+    type: wms
+    req:
+      url: 'https://${AUTH2_SYSTEM_USER}@kb-api.dbca.wa.gov.au/geoserver/ows?'
+      layers: kaartdijin-boodja-private:CPT_IBRA7_AUST
+      transparent: true
+      tiled: true
+      format: image/png
+  ucl:
+    type: wms
+    req:
+      url: 'https://${AUTH2_SYSTEM_USER}@kb-api.dbca.wa.gov.au/geoserver/ows?'
+      layers: kaartdijin-boodja-private:CPT_CADASTRE_UCL_1PL
+      transparent: true
+      tiled: true
+      format: image/png
+  lga-boundaries:
+    type: wms
+    req:
+      url: 'https://${AUTH2_SYSTEM_USER}@kb-api.dbca.wa.gov.au/geoserver/ows?'
+      layers: kaartdijin-boodja-public:CPT_LOCAL_GOVT_AREAS
+      transparent: true
+      tiled: true
+      format: image/png
+
+caches:
+  mapbox-dbca-basemap-cache:
+    sources: [mapbox-dbca-basemap]
+    grids: [default]
+    refresh_before:
+      days: 14
+    cache:
+      type: azureblob
+  mapbox-light-cache:
+    sources: [mapbox-light-tile]
+    grids: [default]
+    refresh_before:
+      days: 14
+    cache:
+      type: azureblob
+  mapbox-dark-cache:
+    sources: [mapbox-dark-tile]
+    grids: [default]
+    refresh_before:
+      days: 14
+    cache:
+      type: azureblob
+  mapbox-satellite-cache:
+    sources: [mapbox-satellite-tile]
+    grids: [default]
+    refresh_before:
+      days: 14
+    cache:
+      type: azureblob
+  mapbox-streets-cache:
+    sources: [mapbox-streets]
+    grids: [default]
+    refresh_before:
+      days: 14
+    cache:
+      type: azureblob
+  dbca-regions-cache:
+    sources: [dbca-regions]
+    grids: [default]
+    refresh_before:
+      days: 90
+    cache:
+      type: azureblob
+  dbca-districts-cache:
+    sources: [dbca-districts]
+    grids: [default]
+    refresh_before:
+      days: 90
+    cache:
+      type: azureblob
+  dbca-tenure-cache:
+    sources: [dbca-tenure]
+    grids: [default]
+    refresh_before:
+      days: 90
+    cache:
+      type: azureblob
+  dbca-regional-parks-cache:
+    sources: [dbca-regional-parks]
+    grids: [default]
+    refresh_before:
+      days: 90
+    cache:
+      type: azureblob
+  dbca-cadastre-cache:
+    sources: [dbca-cadastre]
+    grids: [default]
+    refresh_before:
+      days: 90
+    cache:
+      type: azureblob
+  wa-coast-cache:
+    sources: [wa-coast]
+    grids: [default]
+    refresh_before:
+      days: 365
+    cache:
+      type: azureblob
+  virtual-mosaic-cache:
+    sources: [virtual-mosaic]
+    grids: [default]
+    refresh_before:
+      days: 90
+    cache:
+      type: azureblob
+  ibra7-aust-cache:
+    sources: [ibra7-aust]
+    grids: [default]
+    refresh_before:
+      days: 365
+    cache:
+      type: azureblob
+  ucl-cache:
+    sources: [ucl]
+    grids: [default]
+    refresh_before:
+      days: 90
+    cache:
+      type: azureblob
+  lga-boundaries-cache:
+    sources: [lga-boundaries]
+    grids: [default]
+    refresh_before:
+      days: 90
+    cache:
+      type: azureblob
+
+layers:
+  - name: mapbox-streets-satellite
+    title: Mapbox DBCA basemap
+    sources: [mapbox-dbca-basemap-cache]
+  - name: mapbox-light
+    title: Mapbox light
+    sources: [mapbox-light-cache]
+  - name: mapbox-dark
+    title: Mapbox dark
+    sources: [mapbox-dark-cache]
+  - name: mapbox-satellite
+    title: Mapbox satellite
+    sources: [mapbox-satellite-cache]
+  - name: mapbox-streets
+    title: Mapbox streets
+    sources: [mapbox-streets-cache]
+  - name: dbca-regions
+    title: DBCA Regions
+    sources: [dbca-regions-cache]
+  - name: dbca-districts
+    title: DBCA Districts
+    sources: [dbca-districts-cache]
+  - name: dbca-tenure
+    title: DBCA Tenure
+    sources: [dbca-tenure-cache]
+  - name: dbca-regional-parks-private
+    title: DBCA Regional Parks
+    sources: [dbca-regional-parks-cache]
+  - name: dbca-cadastre-private
+    title: DBCA Cadastre
+    sources: [dbca-cadastre-cache]
+  - name: wa-coast-private
+    title: WA Coast
+    sources: [wa-coast-cache]
+  - name: virtual-mosaic
+    title: WA virtual mosaic
+    sources: [virtual-mosaic-cache]
+  - name: ibra7-aust-private
+    title: IBRA Vegetation Regions Australia
+    sources: [ibra7-aust-cache]
+  - name: ucl-private
+    title: Unallocated Crown Land
+    sources: [ucl-cache]
+  - name: lga-boundaries
+    title: Local Government Authority boundaries WA
+    sources: [lga-boundaries-cache]

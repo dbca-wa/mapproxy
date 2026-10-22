@@ -12,6 +12,9 @@ spec:
               mountPath: /app/config
             - name: mapproxy-lock-data
               mountPath: /mnt/lock
+          envFrom:
+            - secretRef:
+                name: mapproxy-env-prod
       volumes:
         - name: mapproxy-configmap
           configMap:
