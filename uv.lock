@@ -347,7 +347,7 @@ dev = [
 requires-dist = [
     { name = "azure-storage-blob", specifier = "==12.31.0" },
     { name = "gunicorn", extras = ["fast"], specifier = "==26.2.0" },
-    { name = "mapproxy", specifier = "==7.0.0" },
+    { name = "mapproxy", specifier = "==8.1.0" },
     { name = "pillow", specifier = "==13.0.0" },
     { name = "requests", specifier = "==2.34.2" },
 ]
@@ -601,7 +601,7 @@ wheels = [
 
 [[package]]
 name = "mapproxy"
-version = "7.0.0"
+version = "8.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "babel" },
@@ -618,9 +618,9 @@ dependencies = [
     { name = "shapely" },
     { name = "werkzeug" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/61/e1/6c490f14d9f34ea94938d48d544c186ab49699c3ade9fe9f14518e6f2622/mapproxy-7.0.0.tar.gz", hash = "sha256:43c4972d98a01b04a2887f88eda5ad74e527233ad8fd01fd943a541907465d56", size = 3134158, upload-time = "2026-07-17T09:11:12.851Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e6/2b/819f7f4a7c779a0c36912f673b422e1f184b79d346d382eda8b23517035a/mapproxy-8.1.0.tar.gz", hash = "sha256:e490cbc85ea89655084b6778a7c5c7651c94b6726697712cd3d6a35f41eedc2a", size = 3139081, upload-time = "2026-11-05T14:56:30.111Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/35/c5/7f5065b5612e8baf044b038f22157bacbcac561c6740c8ef69cf87b373a5/mapproxy-7.0.0-py3-none-any.whl", hash = "sha256:319026e1a2d4ad4b6ad150fc2db474a9acf312a20bb71634029147d730cc1fdb", size = 3134347, upload-time = "2026-07-17T09:11:10.523Z" },
+    { url = "https://files.pythonhosted.org/packages/61/94/3ddbc09601e8e9395a6714db2b0a5a55442dc95ffbe61ed07f6d3e934c13/mapproxy-8.1.0-py3-none-any.whl", hash = "sha256:67a4da0b8b7f51a97d7951c9700cb5449d70022e53ef7a312767d3abe9d0393e", size = 3136935, upload-time = "2026-11-05T14:56:27.723Z" },
 ]
 
 [[package]]
