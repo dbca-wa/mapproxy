@@ -1,55 +1,62 @@
 # syntax=docker/dockerfile:1
 # Args to centralise versions.
-ARG PYTHON_VERSION=3.13-debian13-dev
+# PYTHON_VERSION is the DHI *runtime* tag (distroless: no shell, no apt).
+# The builder uses the matching -dev tag, which has a shell and apt.
+ARG PYTHON_VERSION=3.13-debian13
+ARG PYTHON_BUILD_VERSION=${PYTHON_VERSION}-dev
+ARG UV_VERSION=0.13
+
+# ---- Stages ----
+FROM ghcr.io/astral-sh/uv:${UV_VERSION} AS uv
+FROM dhi.io/python:${PYTHON_BUILD_VERSION} AS builder
 
 # ---- Builder stage ----
-FROM dhi.io/python:${PYTHON_VERSION} AS builder
-
-RUN <<EOF
-set -euxo pipefail
-apt-get update
-apt-get install -y --no-install-recommends \
-  gcc \
-  g++ \
-  gdal-bin \
-  libgdal36 \
-  libgeos-c1t64
-EOF
+COPY --link --from=uv /uv /usr/local/bin/uv
 
 WORKDIR /app
-COPY --from=ghcr.io/astral-sh/uv:0.13 /uv /bin/
-COPY pyproject.toml uv.lock ./
-RUN uv sync --no-group dev --link-mode=copy --compile-bytecode --no-python-downloads --frozen
 
-# ---- runtime stage: minimal packages needed to run the application ----
+# Compiler needed to build dependencies from source.
+#   * gunicorn-h1c (gunicorn[fast]) publishes no cp313 wheel on any platform, so
+#     its C extension is always compiled from the sdist -> gcc.
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+  --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
+  apt-get update && apt-get install -y --no-install-recommends \
+  gcc
+
+# Install only runtime dependencies into /app/.venv. The venv path must match
+# the runtime stage: uv writes absolute shebangs into console scripts such as
+# gunicorn.
+RUN --mount=type=cache,target=/root/.cache/uv \
+  --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+  --mount=type=bind,source=uv.lock,target=uv.lock \
+  uv sync --locked --no-group dev --link-mode=copy --compile-bytecode --no-python-downloads --no-install-project
+
+# ---- runtime stage: distroless base, no shell/apt ----
 FROM dhi.io/python:${PYTHON_VERSION} AS runtime
 LABEL org.opencontainers.image.source="https://github.com/dbca-wa/mapproxy" \
   org.opencontainers.image.description="DBCA MapProxy" \
   org.opencontainers.image.vendor="DBCA" \
   org.opencontainers.image.authors="asi@dbca.wa.gov.au"
 
-RUN <<EOF
-set -euxo pipefail
-apt-get update
-apt-get install -y --no-install-recommends \
-  gdal-bin \
-  libgdal36 \
-  libgeos-c1t64
-ldconfig
-rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-EOF
-
-# Environment variables
-ENV PYTHONUNBUFFERED=1 \
-  PYTHONDONTWRITEBYTECODE=1 \
-  PATH="/app/.venv/bin:$PATH"
+# No system GIS libraries are installed. pyproj vendors libproj and the PROJ
+# data it needs, and shapely vendors GEOS, so MapProxy never loads the system
+# libraries through ctypes (it logs "using pyproj for coordinate
+# transformation"). Only optional OGR sources need libgdal, and none are used
+# here. This stage has no shell, so it cannot apt-get or run ldconfig; if OGR
+# support is ever required, install libgdal in a `-dev` stage and copy the
+# libraries (and their ldd closure) plus /usr/share/gdal into this one.
 
 WORKDIR /app
-# Copy installed virtualenv from builder
-COPY --from=builder --chown=nonroot:nonroot /app /app
 
-# Copy the remaining project files to finish building the project
-COPY --chown=nonroot:nonroot gunicorn.py pyproject.toml wsgi.py ./
+# Copy installed virtualenv from builder (same path, so console-script shebangs stay valid).
+# --chown must be numeric here: a link layer can't resolve usernames from the
+# base image's /etc/passwd.
+COPY --link --chown=65532:65532 --from=builder /app/.venv /app/.venv
+COPY --link --chown=65532:65532 gunicorn.py pyproject.toml wsgi.py ./
+
+# Console scripts live in the venv, which is not on the base image's PATH;
+# without this the CMD below cannot resolve `gunicorn`.
+ENV PATH="/app/.venv/bin:${PATH}"
 
 USER nonroot
 EXPOSE 8080
